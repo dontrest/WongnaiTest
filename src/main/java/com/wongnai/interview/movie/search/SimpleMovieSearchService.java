@@ -28,7 +28,9 @@ public class SimpleMovieSearchService implements MovieSearchService {
 	public List<Movie> search(String queryText) {
 		MoviesResponse moviesResponse =  movieDataService.fetchAll();
 		List<Movie> movies = new ArrayList<>();
+		//if movie list is not empty
 		if(moviesResponse != null && moviesResponse.size()!=0){
+			// fetch all movie and add Movie that title contain queryText to MovieList
 			for (MovieData movieData : moviesResponse) {
 				if (MovieUtils.SearchWithWholeWord(movieData.getTitle(),queryText)) {
 					Movie movie = new Movie(movieData.getTitle());

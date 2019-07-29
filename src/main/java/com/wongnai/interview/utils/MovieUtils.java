@@ -7,6 +7,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MovieUtils {
+
+
+    /**
+     * get JSON String from url
+     *
+     * @param  url  String url for load JSON
+     * @return String JSON string from url
+     */
     // use to load JSON String from [MOVIE_DATA_URL]
     public static String readJsonFromUrl(String url) throws IOException {
         //open stream
@@ -32,8 +40,17 @@ public class MovieUtils {
         return sb.toString();
     }
 
+    /**
+     * return is source text contain [find] word
+     *
+     * @param  src  source text
+     * @param  find word to find in source text
+     * @return      boolean
+     */
     public static boolean SearchWithWholeWord(String src , String find){
+        //init regex pattern
         String pattern = "\\b"+find+"\\b";
+        // compile pattern and use matcher to get result
         Pattern p= Pattern.compile(pattern);
         Matcher m=p.matcher(src);
         return m.find();

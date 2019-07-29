@@ -25,8 +25,10 @@ public class MovieDataSynchronizer {
 	@Transactional
 	public void forceSync() {
 		//TODO: implement this to sync movie into repository
+		//Fetch All movie from url using service MovieDataService.fectchAll()
 		MoviesResponse moviesResponse = movieDataService.fetchAll();
 		List<Movie> movies = new ArrayList<>();
+		// convert all movieData to entity Movie add to list
 		for (Long index = 0L ; index< moviesResponse.size() ; index+=1) {
 			MovieData movieData = moviesResponse.get(index.intValue());
 			Movie movie = new Movie(movieData.getTitle());
@@ -34,6 +36,7 @@ public class MovieDataSynchronizer {
 			movie.setActors(movieData.getCast());
 			movies.add(movie);
 		}
+		//save list to movieRepository
 		movieRepository.saveAll(movies);
 	}
 }
