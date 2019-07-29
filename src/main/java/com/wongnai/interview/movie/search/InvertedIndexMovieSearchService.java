@@ -1,7 +1,10 @@
 package com.wongnai.interview.movie.search;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import com.wongnai.interview.utils.MovieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -35,6 +38,22 @@ public class InvertedIndexMovieSearchService implements MovieSearchService {
 		// you have to return can be union or intersection of those 2 sets of ids.
 		// By the way, in this assignment, you must use intersection so that it left for just movie id 5.
 
-		return null;
+		Map<String,List<Long>> reverseTbl = MovieUtils.getReverseMap();
+		List<Long> selectedIds = new ArrayList<Long>();
+		queryText = queryText.toLowerCase();
+		for(String word : queryText.split(" ")){
+			if(reverseTbl.containsKey(word)){
+				if(selectedIds.size() == 0){
+					selectedIds.addAll(reverseTbl.get(word));
+				}else {
+					selectedIds.retainAll(reverseTbl.get(word));
+				}
+			}else {
+				// if have a word not contain in map
+				// return empty list
+				selectedIds.clear();
+			}
+		}
+		return (List<Movie>)movieRepository.findAllById(selectedIds);
 	}
 }

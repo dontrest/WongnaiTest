@@ -32,7 +32,7 @@ public class SimpleMovieSearchService implements MovieSearchService {
 		if(moviesResponse != null && moviesResponse.size()!=0){
 			// fetch all movie and add Movie that title contain queryText to MovieList
 			for (MovieData movieData : moviesResponse) {
-				if (MovieUtils.SearchWithWholeWord(movieData.getTitle(),queryText)) {
+				if (MovieUtils.SearchWithWholeWord(movieData.getTitle().toLowerCase(),queryText.toLowerCase())) {
 					Movie movie = new Movie(movieData.getTitle());
 					movie.setActors(movieData.getCast());
 					movies.add(movie);

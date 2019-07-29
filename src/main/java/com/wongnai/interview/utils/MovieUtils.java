@@ -3,6 +3,8 @@ package com.wongnai.interview.utils;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,5 +56,12 @@ public class MovieUtils {
         Pattern p= Pattern.compile(pattern);
         Matcher m=p.matcher(src);
         return m.find();
+    }
+    private static Map<String, List<Long>> reverseMap;
+    public static Map<String,List<Long>> getReverseMap(){
+        return reverseMap;
+    }
+    public static void setReverseMap(Map<String,List<Long>> revMap){
+        reverseMap = revMap;
     }
 }
