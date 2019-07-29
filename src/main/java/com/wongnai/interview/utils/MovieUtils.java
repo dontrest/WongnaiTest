@@ -3,6 +3,8 @@ package com.wongnai.interview.utils;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MovieUtils {
     // use to load JSON String from [MOVIE_DATA_URL]
@@ -28,5 +30,12 @@ public class MovieUtils {
             sb.append((char) cp);
         }
         return sb.toString();
+    }
+
+    public static boolean SearchWithWholeWord(String src , String find){
+        String pattern = "\\b"+find+"\\b";
+        Pattern p= Pattern.compile(pattern);
+        Matcher m=p.matcher(src);
+        return m.find();
     }
 }
