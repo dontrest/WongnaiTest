@@ -29,11 +29,8 @@ public class SimpleMovieSearchService implements MovieSearchService {
 		MoviesResponse moviesResponse =  movieDataService.fetchAll();
 		List<Movie> movies = new ArrayList<>();
 		if(moviesResponse != null && moviesResponse.size()!=0){
-			String pattern = "\\b"+queryText+"\\b";
-			Pattern p= Pattern.compile(pattern);
-
 			for (MovieData movieData : moviesResponse) {
-				if (p.matcher(movieData.getTitle()).find()) {
+				if (MovieUtils.SearchWithWholeWord(movieData.getTitle(),queryText)) {
 					Movie movie = new Movie(movieData.getTitle());
 					movie.setActors(movieData.getCast());
 					movies.add(movie);
